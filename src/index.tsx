@@ -20,11 +20,24 @@ export class App extends React.Component<AppProps, AppState> {
   constructor(props: AppProps) {
     super(props);
     const {
-      duration = 0,
-      jetlag = 0,
-      consistency = 0,
-      efficiency = 0
-    } = props.sdk.field.getValue();
+      duration,
+      jetlag,
+      consistency,
+      efficiency
+    } = props.sdk.field.getValue()
+      ? props.sdk.field.getValue()
+      : {
+          duration: 0,
+          jetlag: 0,
+          consistency: 0,
+          efficiency: 0
+        };
+    // const {
+    //   duration = 0,
+    //   jetlag = 0,
+    //   consistency = 0,
+    //   efficiency = 0
+    // } = props.sdk.field.getValue();
 
     this.state = {
       duration: parseInt(duration),
