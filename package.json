@@ -22,7 +22,7 @@
     "start": "react-scripts start",
     "start-cf": "contentful-extension-scripts start",
     "build": "react-scripts build",
-    "buil-cf": "contentful-extension-scripts build",
+    "build-cf": "contentful-extension-scripts build",
     "test": "react-scripts test",
     "eject": "react-scripts eject"
   },
