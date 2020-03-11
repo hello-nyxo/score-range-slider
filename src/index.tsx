@@ -52,30 +52,30 @@ export class App extends React.Component<AppProps, AppState> {
   }
 
   onExternalChange = (value: {
-    efficiency: string;
     duration: string;
     jetlag: string;
     consistency: string;
+    efficiency: string;
   }) => {
     console.log("onExternalChange", value);
-    const { efficiency, duration, jetlag, consistency } = value;
+    const { duration, jetlag, consistency, efficiency } = value;
     this.setState({
-      efficiency: parseInt(efficiency),
       duration: parseInt(duration),
       jetlag: parseInt(jetlag),
-      consistency: parseInt(consistency)
+      consistency: parseInt(consistency),
+      efficiency: parseInt(efficiency)
     });
   };
 
   updateContentfulValue = async () => {
     if (this.state) {
-      const { efficiency, duration, jetlag, consistency } = this.state;
+      const { duration, jetlag, consistency, efficiency } = this.state;
 
       const update = {
-        efficiency,
         duration,
         jetlag,
-        consistency
+        consistency,
+        efficiency
       };
 
       console.log("this.updateContentfulValue", update);
