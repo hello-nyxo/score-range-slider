@@ -1,6 +1,7 @@
 {
   "name": "coaching-params-ui",
   "version": "0.1.0",
+  "homepage": ".",
   "private": true,
   "devDependencies": {
     "@contentful/contentful-extension-scripts": "0.15.1",
