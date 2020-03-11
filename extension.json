@@ -1,6 +1,6 @@
 {
-  "id": "coaching-params-ui",
-  "name": "coaching-params-ui",
+  "id": "params-ui",
+  "name": "params-ui",
   "srcdoc": "./build/index.html",
-  "fieldTypes": ["Number"]
+  "fieldTypes": ["Object"]
 }
