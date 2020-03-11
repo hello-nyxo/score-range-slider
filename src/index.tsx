@@ -1,9 +1,9 @@
-import * as React from 'react';
-import { render } from 'react-dom';
-import { TextInput } from '@contentful/forma-36-react-components';
-import { init, FieldExtensionSDK } from 'contentful-ui-extensions-sdk';
-import '@contentful/forma-36-react-components/dist/styles.css';
-import './index.css';
+import * as React from "react";
+import { render } from "react-dom";
+import { TextInput } from "@contentful/forma-36-react-components";
+import { init, FieldExtensionSDK } from "contentful-ui-extensions-sdk";
+import "@contentful/forma-36-react-components/dist/styles.css";
+import "./index.css";
 
 interface AppProps {
   sdk: FieldExtensionSDK;
@@ -40,7 +40,9 @@ export class App extends React.Component<AppProps, AppState> {
     this.props.sdk.window.startAutoResizer();
 
     // Handler for external field value changes (e.g. when multiple authors are working on the same entry).
-    this.detachExternalChangeHandler = this.props.sdk.field.onValueChanged(this.onExternalChange);
+    this.detachExternalChangeHandler = this.props.sdk.field.onValueChanged(
+      this.onExternalChange
+    );
   }
 
   componentWillUnmount() {
@@ -55,7 +57,7 @@ export class App extends React.Component<AppProps, AppState> {
     jetlag: string;
     consistency: string;
   }) => {
-    console.log('onExternalChange', value);
+    console.log("onExternalChange", value);
     const { efficiency, duration, jetlag, consistency } = value;
     this.setState({
       efficiency: parseInt(efficiency),
@@ -76,7 +78,7 @@ export class App extends React.Component<AppProps, AppState> {
         consistency
       };
 
-      console.log('this.updateContentfulValue', update);
+      console.log("this.updateContentfulValue", update);
       await this.props.sdk.field.setValue(update);
     } else {
       await this.props.sdk.field.removeValue();
@@ -130,7 +132,7 @@ export class App extends React.Component<AppProps, AppState> {
       <div className="App">
         <div className="gridContainer">
           <div className="sliderHeader">
-            {' '}
+            {" "}
             <h2> Duration </h2>
           </div>
           <input
@@ -144,7 +146,7 @@ export class App extends React.Component<AppProps, AppState> {
           <span className="valueField">{this.state.duration}</span>
 
           <div className="sliderHeader">
-            {' '}
+            {" "}
             <h2> Social Jetlag </h2>
           </div>
           <input
@@ -158,7 +160,7 @@ export class App extends React.Component<AppProps, AppState> {
           <span className="valueField">{this.state.jetlag}</span>
 
           <div className="sliderHeader">
-            {' '}
+            {" "}
             <h2> Consistency </h2>
           </div>
           <input
@@ -172,7 +174,7 @@ export class App extends React.Component<AppProps, AppState> {
           <span className="valueField">{this.state.consistency}</span>
 
           <div className="sliderHeader">
-            {' '}
+            {" "}
             <h2> Efficiency </h2>
           </div>
           <input
@@ -233,7 +235,10 @@ export class App extends React.Component<AppProps, AppState> {
 }
 
 init(sdk => {
-  render(<App sdk={sdk as FieldExtensionSDK} />, document.getElementById('root'));
+  render(
+    <App sdk={sdk as FieldExtensionSDK} />,
+    document.getElementById("root")
+  );
 });
 
 /**
