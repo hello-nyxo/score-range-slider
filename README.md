@@ -1,3 +1,11 @@
+# Nyxo Coaching Parameter Contentful UI Extension
+
+This UI extension was build to allow us to easily change the weight on which the coaching content is matched to user's sleeping behavior.
+
+## What it looks like
+
+![](ui.png)
+
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
 ## Available Scripts
