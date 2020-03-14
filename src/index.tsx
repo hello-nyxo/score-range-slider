@@ -1,9 +1,9 @@
-import * as React from "react";
-import { render } from "react-dom";
-import { TextInput } from "@contentful/forma-36-react-components";
-import { init, FieldExtensionSDK } from "contentful-ui-extensions-sdk";
-import "@contentful/forma-36-react-components/dist/styles.css";
-import "./index.css";
+import React from 'react';
+import { render } from 'react-dom';
+import { init, FieldExtensionSDK } from 'contentful-ui-extensions-sdk';
+import SliderField from './SliderField';
+import RadarChart from './Radar';
+import styled from 'styled-components';
 
 interface AppProps {
   sdk: FieldExtensionSDK;
@@ -19,43 +19,36 @@ interface AppState {
 export class App extends React.Component<AppProps, AppState> {
   constructor(props: AppProps) {
     super(props);
-    const {
-      duration,
-      jetlag,
-      consistency,
-      efficiency
-    } = props.sdk.field.getValue()
-      ? props.sdk.field.getValue()
-      : {
-          duration: 0,
-          jetlag: 0,
-          consistency: 0,
-          efficiency: 0
-        };
-    // const {
-    //   duration = 0,
-    //   jetlag = 0,
-    //   consistency = 0,
-    //   efficiency = 0
-    // } = props.sdk.field.getValue();
 
-    this.state = {
-      duration: parseInt(duration),
-      jetlag: parseInt(jetlag),
-      consistency: parseInt(consistency),
-      efficiency: parseInt(efficiency)
-    };
+    const values = props.sdk.field.getValue();
+
+    if (values) {
+      const duration = values.duration ? values.duration : 50;
+      const jetlag = values.jetlag ? values.jetlag : 50;
+      const consistency = values.consistency ? values.consistency : 50;
+      const efficiency = values.efficiency ? values.efficiency : 50;
+
+      this.state = {
+        duration: duration,
+        jetlag: jetlag,
+        consistency: consistency,
+        efficiency: efficiency
+      };
+    } else {
+      this.state = {
+        duration: 50,
+        jetlag: 50,
+        consistency: 50,
+        efficiency: 50
+      };
+    }
   }
 
   detachExternalChangeHandler: Function | null = null;
 
   componentDidMount() {
     this.props.sdk.window.startAutoResizer();
-
-    // Handler for external field value changes (e.g. when multiple authors are working on the same entry).
-    this.detachExternalChangeHandler = this.props.sdk.field.onValueChanged(
-      this.onExternalChange
-    );
+    this.detachExternalChangeHandler = this.props.sdk.field.onValueChanged(this.onExternalChange);
   }
 
   componentWillUnmount() {
@@ -64,194 +57,79 @@ export class App extends React.Component<AppProps, AppState> {
     }
   }
 
-  onExternalChange = (value: {
-    duration: string;
-    jetlag: string;
-    consistency: string;
-    efficiency: string;
-  }) => {
-    console.log("onExternalChange", value);
-    const { duration, jetlag, consistency, efficiency } = value;
-    this.setState({
-      duration: parseInt(duration),
-      jetlag: parseInt(jetlag),
-      consistency: parseInt(consistency),
-      efficiency: parseInt(efficiency)
-    });
+  onExternalChange = (value: any) => {
+    // const { duration, jetlag, consistency, efficiency } = value;
   };
 
   updateContentfulValue = async () => {
     if (this.state) {
       const { duration, jetlag, consistency, efficiency } = this.state;
-
       const update = {
         duration,
         jetlag,
         consistency,
         efficiency
       };
-
-      console.log("this.updateContentfulValue", update);
       await this.props.sdk.field.setValue(update);
     } else {
       await this.props.sdk.field.removeValue();
     }
   };
 
-  // onChange = async (e: React.ChangeEvent<HTMLInputElement>) => {
-  //   const value = e.currentTarget.value;
-  //   this.setState({ value });
-  //   if (value) {
-  //     await this.props.sdk.field.setValue(value);
-  //   } else {
-  //     await this.props.sdk.field.removeValue();
-  //   }
-  // };
-
-  handleDurationChange = async (event: any) => {
-    await this.setState({ duration: event.target.value });
-    await this.updateContentfulValue();
+  updateCallback = (item: any) => {
+    this.setState(prevState => ({ ...prevState, ...item }));
+    this.updateContentfulValue();
   };
-
-  handleJetlagChange = async (event: any) => {
-    await this.setState({ jetlag: event.target.value });
-    await this.updateContentfulValue();
-  };
-
-  handleConsistencyChange = async (event: any) => {
-    await this.setState({ consistency: event.target.value });
-    await this.updateContentfulValue();
-  };
-
-  handleEfficiencyChange = async (event: any) => {
-    await this.setState({ efficiency: event.target.value });
-    await this.updateContentfulValue();
-  };
-
-  // handleEveningTypeChange = (event: any) => {
-  //   setEveningType(event.target.value);
-  // };
-
-  // handleMorningTypeChange = (event: any) => {
-  //   setMorningType(event.target.value);
-  // };
-
-  // handleQualityChange = (event: any) => {
-  //   setQuality(event.target.value);
-  // };
 
   render = () => {
+    const { duration, jetlag, consistency, efficiency } = this.state;
     return (
       <div className="App">
-        <div className="gridContainer">
-          <div className="sliderHeader">
-            {" "}
-            <h2> Duration </h2>
-          </div>
-          <input
-            value={this.state.duration}
-            type="range"
-            min="0"
-            max="100"
-            className="sliderRange"
-            onChange={this.handleDurationChange}
-          />
-          <span className="valueField">{this.state.duration}</span>
+        <Form spacing="condensed">
+          <RadarChart data={this.state} />
 
-          <div className="sliderHeader">
-            {" "}
-            <h2> Social Jetlag </h2>
-          </div>
-          <input
-            value={this.state.jetlag}
-            type="range"
-            min="0"
-            max="100"
-            className="sliderRange"
-            onChange={this.handleJetlagChange}
+          <SliderField
+            value={duration}
+            fieldLabel="Duration of Sleep"
+            fieldName="duration"
+            updateCallback={this.updateCallback}
+            helpText="Duration is the measure of how long the nights are. Nights that are below the designated length give a lower score, as do nights that exceed it by a large margin."
           />
-          <span className="valueField">{this.state.jetlag}</span>
-
-          <div className="sliderHeader">
-            {" "}
-            <h2> Consistency </h2>
-          </div>
-          <input
-            value={this.state.consistency}
-            type="range"
-            min="0"
-            max="100"
-            className="sliderRange"
-            onChange={this.handleConsistencyChange}
+          <SliderField
+            value={jetlag}
+            fieldLabel="Social Jet Lag"
+            fieldName="jetlag"
+            updateCallback={this.updateCallback}
+            helpText="Social Jet lag measures the differences between weekend and weekday nights. Lower score means user has more problems in keeping a consistent sleep schedule."
           />
-          <span className="valueField">{this.state.consistency}</span>
-
-          <div className="sliderHeader">
-            {" "}
-            <h2> Efficiency </h2>
-          </div>
-          <input
-            value={this.state.efficiency}
-            type="range"
-            min="0"
-            max="100"
-            className="sliderRange"
-            onChange={this.handleEfficiencyChange}
+          <SliderField
+            value={consistency}
+            fieldLabel="Sleep Consistency"
+            fieldName="consistency"
+            updateCallback={this.updateCallback}
+            helpText="Sleep consistency is a measure of how consistent the user's sleep is between each night. "
           />
-          <span className="valueField">{this.state.efficiency}</span>
-
-          {/* <div className="sliderHeader">
-            {' '}
-            <h2> Evening Type </h2>
-          </div>
-          <Input
-            value={eveningType}
-            type="range"
-            min="0"
-            max="100"
-            class="sliderRange"
-            onChange={handleEveningTypeChange}
+          <SliderField
+            value={efficiency}
+            fieldLabel="Sleep Efficiency"
+            fieldName="efficiency"
+            updateCallback={this.updateCallback}
+            helpText="Sleep efficiency is a measure of how efficiently user sleep. 
+            It is calculated based on difference between time spent in bed versus time spent asleep.
+             Night with many wake ups and disruptions also gives a lower efficiency number."
           />
-          <span className="valueField">{this.state}</span> */}
-
-          {/* <div className="sliderHeader">
-            {' '}
-            <h2> Morning Type </h2>
-          </div>
-          <Input
-            value={morningType}
-            type="range"
-            min="0"
-            max="100"
-            class="sliderRange"
-            onChange={handleMorningTypeChange}
-          />
-          <span class="valueField">{morningType}</span>
-
-          <div class="sliderHeader">
-            {' '}
-            <h2> Sleep Quality </h2>
-          </div>
-          <Input
-            value={quality}
-            type="range"
-            min="0"
-            max="100"
-            class="sliderRange"
-            onChange={handleQualityChange}
-          />
-          <span class="valueField">{quality}</span> */}
-        </div>
+        </Form>
       </div>
     );
   };
 }
 
+const Form = styled.form`
+  display: block;
+`;
+
 init(sdk => {
-  render(
-    <App sdk={sdk as FieldExtensionSDK} />,
-    document.getElementById("root")
-  );
+  render(<App sdk={sdk as FieldExtensionSDK} />, document.getElementById('root'));
 });
 
 /**
