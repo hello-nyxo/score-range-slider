@@ -34,11 +34,14 @@
   },
   "dependencies": {
     "@types/styled-components": "^5.0.1",
+    "bufferutil": "^4.0.1",
+    "canvas": "^2.6.1",
     "contentful-ui-extensions-sdk": "3.9.0",
     "react": "^16.8.6",
     "react-d3-radar": "^1.0.0-rc6",
     "react-dom": "^16.8.6",
-    "styled-components": "^5.0.1"
+    "styled-components": "^5.0.1",
+    "utf-8-validate": "^5.0.2"
   },
   "browserslist": [
     "last 5 Chrome version",
