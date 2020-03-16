@@ -23,10 +23,10 @@ export class App extends React.Component<AppProps, AppState> {
     const values = props.sdk.field.getValue();
 
     if (values) {
-      const duration = values.duration ? values.duration : 50;
-      const jetlag = values.jetlag ? values.jetlag : 50;
-      const consistency = values.consistency ? values.consistency : 50;
-      const efficiency = values.efficiency ? values.efficiency : 50;
+      const duration = values.duration ? values.duration : 0;
+      const jetlag = values.jetlag ? values.jetlag : 0;
+      const consistency = values.consistency ? values.consistency : 0;
+      const efficiency = values.efficiency ? values.efficiency : 0;
 
       this.state = {
         duration: duration,
@@ -36,10 +36,10 @@ export class App extends React.Component<AppProps, AppState> {
       };
     } else {
       this.state = {
-        duration: 50,
-        jetlag: 50,
-        consistency: 50,
-        efficiency: 50
+        duration: 0,
+        jetlag: 0,
+        consistency: 0,
+        efficiency: 0
       };
     }
   }
