@@ -38,7 +38,9 @@ const SliderField = (props: Props) => {
           type="range"
           min="0"
           max="100"
-          onChange={onValueChange2}
+          onChange={
+            onValueChange2
+          } /* atm tries to change same field value than the other slider, separate field must be created */
         />
         <Value>{value2}</Value>
       </InputContainer>
@@ -103,14 +105,21 @@ const Input = styled.input`
     border: 0.2px solid #c5d2d8;
   }
 
-  input[type='range']:nth-child(2)::-webkit-slider-runnable-track {
+  /* input[type='range']:nth-child(2)::-webkit-slider-runnable-track {
     background: none;
-  }
+  } */
+
+  /* &:nth-child(2)::-webkit-slider-runnable-track {
+    background: none;
+  } */
+
+  /* &:nth-child(2) input[type='range'] {
+    background: none;
+  } */
 
   &::-webkit-slider-thumb {
-    z-index: 1;
-    position: relative;
-
+    /* z-index: 1;
+    position: relative; */
     border: 1.5px solid #000000;
     height: 36px;
     width: 18px;
@@ -121,9 +130,9 @@ const Input = styled.input`
     margin-top: -14px;
   }
 
-  input[type='range']:nth-child(1)::-webkit-slider-thumb {
+  /* input[type='range']:nth-child(1)::-webkit-slider-thumb {
     z-index: 0;
-  }
+  } */
 
   &:focus::-webkit-slider-runnable-track {
     background: #367ebd;
