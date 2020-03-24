@@ -1,6 +1,6 @@
 {
-  "id": "params-ui",
-  "name": "params-ui",
+  "id": "score-range-slider",
+  "name": "score-range-slider",
   "srcdoc": "./build/index.html",
   "fieldTypes": ["Object"]
 }

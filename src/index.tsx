@@ -2,7 +2,6 @@ import React from 'react';
 import { render } from 'react-dom';
 import { init, FieldExtensionSDK } from 'contentful-ui-extensions-sdk';
 import SliderField from './SliderField';
-import RadarChart from './Radar';
 import styled from 'styled-components';
 
 interface AppProps {
@@ -86,16 +85,14 @@ export class App extends React.Component<AppProps, AppState> {
     return (
       <div className="App">
         <Form spacing="condensed">
-          <RadarChart data={this.state} />
-
           <SliderField
             value={duration}
-            fieldLabel="Duration of Sleep"
+            fieldLabel="Score Range"
             fieldName="duration"
             updateCallback={this.updateCallback}
-            helpText="Duration is the measure of how long the nights are. Nights that are below the designated length give a lower score, as do nights that exceed it by a large margin."
+            helpText="Select the questionnaire score range associated with this result. Don't select ranges overlapping with other results!"
           />
-          <SliderField
+          {/* <SliderField
             value={jetlag}
             fieldLabel="Social Jet Lag"
             fieldName="jetlag"
@@ -117,7 +114,7 @@ export class App extends React.Component<AppProps, AppState> {
             helpText="Sleep efficiency is a measure of how efficiently user sleep. 
             It is calculated based on difference between time spent in bed versus time spent asleep.
              Night with many wake ups and disruptions also gives a lower efficiency number."
-          />
+          /> */}
         </Form>
       </div>
     );
