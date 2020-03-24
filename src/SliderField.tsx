@@ -3,16 +3,20 @@ import styled from 'styled-components';
 interface Props {
   updateCallback: Function;
   value: number;
+  value2: number;
   fieldName: string;
   fieldLabel: string;
   helpText: string;
 }
 
 const SliderField = (props: Props) => {
-  const { updateCallback, fieldName, value, helpText, fieldLabel } = props;
+  const { updateCallback, fieldName, value, value2, helpText, fieldLabel } = props;
 
   const onValueChange = (event: ChangeEvent<any>) => {
     updateCallback({ [fieldName]: parseInt(event.target.value) });
+  };
+  const onValueChange2 = (event: ChangeEvent<any>) => {
+    updateCallback({ [fieldName]: parseInt(event.target.value2) });
   };
 
   return (
@@ -28,6 +32,15 @@ const SliderField = (props: Props) => {
           onChange={onValueChange}
         />
         <Value>{value}</Value>
+        <Input
+          name={fieldName}
+          value={value2}
+          type="range"
+          min="0"
+          max="100"
+          onChange={onValueChange2}
+        />
+        <Value>{value2}</Value>
       </InputContainer>
 
       <HelpText>{helpText}</HelpText>
@@ -89,7 +102,15 @@ const Input = styled.input`
     border-radius: 1.3px;
     border: 0.2px solid #c5d2d8;
   }
+
+  input[type='range']:nth-child(2)::-webkit-slider-runnable-track {
+    background: none;
+  }
+
   &::-webkit-slider-thumb {
+    z-index: 1;
+    position: relative;
+
     border: 1.5px solid #000000;
     height: 36px;
     width: 18px;
@@ -99,6 +120,11 @@ const Input = styled.input`
     -webkit-appearance: none;
     margin-top: -14px;
   }
+
+  input[type='range']:nth-child(1)::-webkit-slider-thumb {
+    z-index: 0;
+  }
+
   &:focus::-webkit-slider-runnable-track {
     background: #367ebd;
   }
