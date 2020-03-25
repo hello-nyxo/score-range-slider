@@ -154,6 +154,14 @@ export class App extends React.Component<AppProps, AppState> {
     this.updateContentfulValue();
   };
 
+  // onValueChange = (event: ChangeEvent<any>) => {
+  //   updateCallback({ [fieldName]: parseInt(event.target.value) });
+  // };
+
+  onChange = () => {
+    console.log('seepra'); // ei toimi..
+  };
+
   render = () => {
     const { lowEnd, highEnd } = this.state;
     return (
