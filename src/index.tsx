@@ -131,7 +131,7 @@ export class App extends React.Component<AppProps, AppState> {
     return (
       <div className="App">
         <Form spacing="condensed">
-          <Slider rootStyle={sliderStyle} domain={[0, 100]} step={1} mode={2} values={[30]}>
+          <Slider rootStyle={sliderStyle} domain={[0, 100]} step={1} mode={2} values={[0, 100]}>
             <Rail>{({ getRailProps }) => <div style={railStyle} {...getRailProps()} />}</Rail>
             <Handles>
               {({ handles, getHandleProps }) => (
@@ -142,7 +142,7 @@ export class App extends React.Component<AppProps, AppState> {
                 </div>
               )}
             </Handles>
-            <Tracks right={false}>
+            <Tracks left={false} right={false}>
               {({ tracks, getTrackProps }) => (
                 <div className="slider-tracks">
                   {tracks.map(({ id, source, target }) => (
@@ -193,9 +193,9 @@ export class App extends React.Component<AppProps, AppState> {
 const sliderStyle = {
   // Give the slider some width
   position: 'relative',
-  width: '100%',
-  height: 80,
-  border: '1px solid steelblue'
+  width: '90%',
+  height: 80
+  // border: '1px solid steelblue'
 };
 
 const railStyle = {
