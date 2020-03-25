@@ -10,10 +10,12 @@ interface AppProps {
 }
 
 interface AppState {
-  duration: number;
-  jetlag: number;
-  consistency: number;
-  efficiency: number;
+  // duration: number;
+  // jetlag: number;
+  // consistency: number;
+  // efficiency: number;
+  lowEnd: number;
+  highEnd: number;
 }
 
 export function Handle({ handle: { id, value, percent }, getHandleProps }) {
@@ -68,25 +70,38 @@ export class App extends React.Component<AppProps, AppState> {
     const values = props.sdk.field.getValue();
 
     if (values) {
-      const duration = values.duration ? values.duration : 0;
-      const jetlag = values.jetlag ? values.jetlag : 0;
-      const consistency = values.consistency ? values.consistency : 0;
-      const efficiency = values.efficiency ? values.efficiency : 0;
+      const lowEnd = values.lowEnd ? values.lowEnd : 0;
+      const highEnd = values.highEnd ? values.highEnd : 0; // 0 vai 100??
 
       this.state = {
-        duration: duration,
-        jetlag: jetlag,
-        consistency: consistency,
-        efficiency: efficiency
+        lowEnd: lowEnd,
+        highEnd: highEnd
       };
     } else {
       this.state = {
-        duration: 0,
-        jetlag: 0,
-        consistency: 0,
-        efficiency: 0
+        lowEnd: 0,
+        highEnd: 100
       };
     }
+    //   const duration = values.duration ? values.duration : 0;
+    //   const jetlag = values.jetlag ? values.jetlag : 0;
+    //   const consistency = values.consistency ? values.consistency : 0;
+    //   const efficiency = values.efficiency ? values.efficiency : 0;
+
+    //   this.state = {
+    //     duration: duration,
+    //     jetlag: jetlag,
+    //     consistency: consistency,
+    //     efficiency: efficiency
+    //   };
+    // } else {
+    //   this.state = {
+    //     duration: 0,
+    //     jetlag: 0,
+    //     consistency: 0,
+    //     efficiency: 0
+    //   };
+    // }
   }
 
   detachExternalChangeHandler: Function | null = null;
@@ -108,12 +123,10 @@ export class App extends React.Component<AppProps, AppState> {
 
   updateContentfulValue = async () => {
     if (this.state) {
-      const { duration, jetlag, consistency, efficiency } = this.state;
+      const { lowEnd, highEnd } = this.state;
       const update = {
-        duration,
-        jetlag,
-        consistency,
-        efficiency
+        lowEnd,
+        highEnd
       };
       await this.props.sdk.field.setValue(update);
     } else {
@@ -121,13 +134,28 @@ export class App extends React.Component<AppProps, AppState> {
     }
   };
 
+  // updateContentfulValue = async () => {
+  //   if (this.state) {
+  //     const { duration, jetlag, consistency, efficiency } = this.state;
+  //     const update = {
+  //       duration,
+  //       jetlag,
+  //       consistency,
+  //       efficiency
+  //     };
+  //     await this.props.sdk.field.setValue(update);
+  //   } else {
+  //     await this.props.sdk.field.removeValue();
+  //   }
+  // };
+
   updateCallback = (item: any) => {
     this.setState(prevState => ({ ...prevState, ...item }));
     this.updateContentfulValue();
   };
 
   render = () => {
-    const { duration, jetlag, consistency, efficiency } = this.state;
+    const { lowEnd, highEnd } = this.state;
     return (
       <div className="App">
         <Form spacing="condensed">
@@ -195,7 +223,6 @@ const sliderStyle = {
   position: 'relative',
   width: '98%',
   height: 80
-  // border: '1px solid steelblue'
 };
 
 const railStyle = {
