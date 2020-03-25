@@ -1,7 +1,7 @@
 import React from 'react';
 import { render } from 'react-dom';
 import { init, FieldExtensionSDK } from 'contentful-ui-extensions-sdk';
-import { Slider, Handles, Tracks } from 'react-compound-slider';
+import { Slider, Rail, Handles, Tracks } from 'react-compound-slider';
 import SliderField from './SliderField';
 import styled from 'styled-components';
 
@@ -132,7 +132,7 @@ export class App extends React.Component<AppProps, AppState> {
       <div className="App">
         <Form spacing="condensed">
           <Slider rootStyle={sliderStyle} domain={[0, 100]} step={1} mode={2} values={[30]}>
-            <div style={railStyle} />
+            <Rail>{({ getRailProps }) => <div style={railStyle} {...getRailProps()} />}</Rail>
             <Handles>
               {({ handles, getHandleProps }) => (
                 <div className="slider-handles">
