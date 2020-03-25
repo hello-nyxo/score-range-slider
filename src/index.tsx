@@ -193,7 +193,7 @@ export class App extends React.Component<AppProps, AppState> {
 const sliderStyle = {
   // Give the slider some width
   position: 'relative',
-  width: '90%',
+  width: '95%',
   height: 80
   // border: '1px solid steelblue'
 };
@@ -204,10 +204,11 @@ const railStyle = {
   height: 10,
   marginTop: 35,
   borderRadius: 5,
-  backgroundColor: '#8B9CB6'
+  backgroundColor: '#D6D8E3'
 };
 
 const Form = styled.form`
+  align-content: center;
   display: block;
 `;
 
