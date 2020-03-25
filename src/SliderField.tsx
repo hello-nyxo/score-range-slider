@@ -1,4 +1,5 @@
 import React, { ChangeEvent } from 'react';
+import { Slider } from 'react-compound-slider';
 import styled from 'styled-components';
 interface Props {
   updateCallback: Function;
@@ -23,7 +24,13 @@ const SliderField = (props: Props) => {
     <>
       <Label htmlFor={fieldName}>{fieldLabel}</Label>
       <InputContainer>
-        <Input
+        <Slider
+          rootStyle={
+            sliderStyle /* inline styles for the outer div. Can also use className prop. */
+          }
+          domain={[0, 100]}
+          values={[10]}></Slider>
+        {/* <Input
           name={fieldName}
           value={value}
           type="range"
@@ -38,11 +45,9 @@ const SliderField = (props: Props) => {
           type="range"
           min="0"
           max="100"
-          onChange={
-            onValueChange2
-          } /* atm tries to change same field value than the other slider, separate field must be created */
+          onChange={onValueChange2}
         />
-        <Value>{value2}</Value>
+        <Value>{value2}</Value> */}
       </InputContainer>
 
       <HelpText>{helpText}</HelpText>
@@ -87,6 +92,30 @@ const Value = styled(Label)`
   color: #2a3039;
   font-weight: 600;
 `;
+
+// const sliderStyle = styled(sliderStyle)`
+//   position: 'relative',
+//   width: '100%',
+//   height: 80,
+//   border: '1px solid steelblue',
+// `;
+
+const sliderStyle = {
+  // Give the slider some width
+  position: 'relative',
+  width: '100%',
+  height: 80,
+  border: '1px solid steelblue'
+};
+
+/* const railStyle = {
+  position: 'absolute',
+  width: '100%',
+  height: 10,
+  marginTop: 35,
+  borderRadius: 5,
+  backgroundColor: '#8B9CB6'
+}; */
 
 const Input = styled.input`
   -webkit-appearance: none;
