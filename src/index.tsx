@@ -7,25 +7,14 @@ import styled from 'styled-components';
 
 interface AppProps {
   sdk: FieldExtensionSDK;
-  lowEnd: number;
 }
 
 interface AppState {
-  // duration: number;
-  // jetlag: number;
-  // consistency: number;
-  // efficiency: number;
   lowEnd: number;
   highEnd: number;
 }
 
-// var lowEnd;
-// var test;
-export function Handle({ handle: { id, value, values, percent }, getHandleProps }) {
-  // lowEnd = { values };
-  // console.log(lowEnd);
-  // console.log('seepra');
-  // console.log(test);
+export function Handle({ handle: { id, value, percent }, getHandleProps }) {
   return (
     <div
       style={{
@@ -78,7 +67,7 @@ export class App extends React.Component<AppProps, AppState> {
 
     if (values) {
       const lowEnd = values.lowEnd ? values.lowEnd : 0;
-      const highEnd = values.highEnd ? values.highEnd : 0; // 0 vai 100??
+      const highEnd = values.highEnd ? values.highEnd : 0; // 0 or 100??
 
       this.state = {
         lowEnd: lowEnd,
@@ -90,46 +79,10 @@ export class App extends React.Component<AppProps, AppState> {
         highEnd: 100
       };
     }
-    //   const duration = values.duration ? values.duration : 0;
-    //   const jetlag = values.jetlag ? values.jetlag : 0;
-    //   const consistency = values.consistency ? values.consistency : 0;
-    //   const efficiency = values.efficiency ? values.efficiency : 0;
-
-    //   this.state = {
-    //     duration: duration,
-    //     jetlag: jetlag,
-    //     consistency: consistency,
-    //     efficiency: efficiency
-    //   };
-    // } else {
-    //   this.state = {
-    //     duration: 0,
-    //     jetlag: 0,
-    //     consistency: 0,
-    //     efficiency: 0
-    //   };
-    // }
   }
-
-  detachExternalChangeHandler: Function | null = null;
-
-  componentDidMount() {
-    this.props.sdk.window.startAutoResizer();
-    this.detachExternalChangeHandler = this.props.sdk.field.onValueChanged(this.onExternalChange);
-  }
-
-  componentWillUnmount() {
-    if (this.detachExternalChangeHandler) {
-      this.detachExternalChangeHandler();
-    }
-  }
-
-  onExternalChange = (value: any) => {
-    // const { duration, jetlag, consistency, efficiency } = value;
-  };
 
   updateContentfulValue = async () => {
-    console.log(this.state);
+    // console.log(this.state);
     if (this.state) {
       const { lowEnd, highEnd } = this.state;
       const update = {
@@ -142,28 +95,7 @@ export class App extends React.Component<AppProps, AppState> {
     }
   };
 
-  // updateContentfulValue = async () => {
-  //   if (this.state) {
-  //     const { duration, jetlag, consistency, efficiency } = this.state;
-  //     const update = {
-  //       duration,
-  //       jetlag,
-  //       consistency,
-  //       efficiency
-  //     };
-  //     await this.props.sdk.field.setValue(update);
-  //   } else {
-  //     await this.props.sdk.field.removeValue();
-  //   }
-  // };
-
-  updateCallback = (item: any) => {
-    this.setState(prevState => ({ ...prevState, ...item }));
-    this.updateContentfulValue();
-  };
-
   onChange = (event: any) => {
-    // console.log(event);
     this.setState({ lowEnd: event[0], highEnd: event[1] });
     this.updateContentfulValue();
   };
@@ -205,38 +137,6 @@ export class App extends React.Component<AppProps, AppState> {
               "Select the questionnaire score range associated with this result. Don't select ranges overlapping with other results!"
             }
           </HelpText>
-
-          {/* <SliderField
-            value={duration}
-            fieldLabel="Score Range"
-            fieldName="duration"
-            updateCallback={this.updateCallback}
-            helpText="Select the questionnaire score range associated with this result. Don't select ranges overlapping with other results!"
-          /> */}
-
-          {/* <SliderField
-            value={jetlag}
-            fieldLabel="Social Jet Lag"
-            fieldName="jetlag"
-            updateCallback={this.updateCallback}
-            helpText="Social Jet lag measures the differences between weekend and weekday nights. Lower score means user has more problems in keeping a consistent sleep schedule."
-          />
-          <SliderField
-            value={consistency}
-            fieldLabel="Sleep Consistency"
-            fieldName="consistency"
-            updateCallback={this.updateCallback}
-            helpText="Sleep consistency is a measure of how consistent the user's sleep is between each night. "
-          />
-          <SliderField
-            value={efficiency}
-            fieldLabel="Sleep Efficiency"
-            fieldName="efficiency"
-            updateCallback={this.updateCallback}
-            helpText="Sleep efficiency is a measure of how efficiently user sleep. 
-            It is calculated based on difference between time spent in bed versus time spent asleep.
-             Night with many wake ups and disruptions also gives a lower efficiency number."
-          /> */}
         </Form>
       </div>
     );
@@ -244,7 +144,6 @@ export class App extends React.Component<AppProps, AppState> {
 }
 
 const sliderStyle = {
-  // Give the slider some width
   position: 'relative',
   width: '98%',
   height: 80
