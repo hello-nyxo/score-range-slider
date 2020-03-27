@@ -7,6 +7,7 @@ import styled from 'styled-components';
 
 interface AppProps {
   sdk: FieldExtensionSDK;
+  lowEnd: number;
 }
 
 interface AppState {
@@ -18,7 +19,13 @@ interface AppState {
   highEnd: number;
 }
 
-export function Handle({ handle: { id, value, percent }, getHandleProps }) {
+var lowEnd;
+var test;
+export function Handle({ handle: { id, value, values, percent }, getHandleProps }) {
+  // lowEnd = { values };
+  // console.log(lowEnd);
+  // console.log('seepra');
+  // console.log(test);
   return (
     <div
       style={{
@@ -42,6 +49,10 @@ export function Handle({ handle: { id, value, percent }, getHandleProps }) {
   );
 }
 
+// function onChange({}) {
+
+// }
+
 function Track({ source, target, getTrackProps }) {
   return (
     <div
@@ -62,6 +73,29 @@ function Track({ source, target, getTrackProps }) {
     />
   );
 }
+
+// function Slider({ rootStyle, domain, step, mode, values }) {
+//   rootStyle = sliderStyle;
+//   domain = [0, 100];
+//   step = 1;
+//   mode = 2;
+//   values = [0, 100];
+// }
+
+// var values;
+// const Slider({ values, getSliderProps }) {
+//   values = { values };
+//   console.log('seepra');
+//   console.log(values);
+// }
+// const sliderField = (props: getSliderProps) => {
+
+// const onValueChange = (event: onChange) => {
+//   updateCallback({ [fieldName]: parseInt(event.target.value) });
+// };
+// onChange = () => {
+//   console.log('seepra'); // ei toimi..
+// };
 
 export class App extends React.Component<AppProps, AppState> {
   constructor(props: AppProps) {
@@ -158,16 +192,26 @@ export class App extends React.Component<AppProps, AppState> {
   //   updateCallback({ [fieldName]: parseInt(event.target.value) });
   // };
 
-  onChange = () => {
-    console.log('seepra'); // ei toimi..
-  };
+  // onChange = ([ms]) => {
+  //   this.setState({
+  //     selected: new Date(ms)
+  //   });
+  // };
 
   render = () => {
     const { lowEnd, highEnd } = this.state;
     return (
       <div className="App">
         <Form spacing="condensed">
+          {/* <Slider
+            rootStyle={sliderStyle}
+            domain={[0, 100]}
+            step={1}
+            mode={2}
+            values={[0, 100]}
+            onChange={this.onChange}> */}
           <Slider rootStyle={sliderStyle} domain={[0, 100]} step={1} mode={2} values={[0, 100]}>
+            {/* {({ values, getSliderProps }) => (test = { values })} */}
             <Rail>{({ getRailProps }) => <div style={railStyle} {...getRailProps()} />}</Rail>
             <Handles>
               {({ handles, getHandleProps }) => (
