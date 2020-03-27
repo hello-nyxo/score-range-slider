@@ -2,7 +2,6 @@ import React from 'react';
 import { render } from 'react-dom';
 import { init, FieldExtensionSDK } from 'contentful-ui-extensions-sdk';
 import { Slider, Rail, Handles, Tracks } from 'react-compound-slider';
-import SliderField from './SliderField';
 import styled from 'styled-components';
 
 interface AppProps {
