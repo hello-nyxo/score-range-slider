@@ -19,8 +19,8 @@ interface AppState {
   highEnd: number;
 }
 
-var lowEnd;
-var test;
+// var lowEnd;
+// var test;
 export function Handle({ handle: { id, value, values, percent }, getHandleProps }) {
   // lowEnd = { values };
   // console.log(lowEnd);
@@ -49,10 +49,6 @@ export function Handle({ handle: { id, value, values, percent }, getHandleProps 
   );
 }
 
-// function onChange({}) {
-
-// }
-
 function Track({ source, target, getTrackProps }) {
   return (
     <div
@@ -73,29 +69,6 @@ function Track({ source, target, getTrackProps }) {
     />
   );
 }
-
-// function Slider({ rootStyle, domain, step, mode, values }) {
-//   rootStyle = sliderStyle;
-//   domain = [0, 100];
-//   step = 1;
-//   mode = 2;
-//   values = [0, 100];
-// }
-
-// var values;
-// const Slider({ values, getSliderProps }) {
-//   values = { values };
-//   console.log('seepra');
-//   console.log(values);
-// }
-// const sliderField = (props: getSliderProps) => {
-
-// const onValueChange = (event: onChange) => {
-//   updateCallback({ [fieldName]: parseInt(event.target.value) });
-// };
-// onChange = () => {
-//   console.log('seepra'); // ei toimi..
-// };
 
 export class App extends React.Component<AppProps, AppState> {
   constructor(props: AppProps) {
@@ -156,6 +129,7 @@ export class App extends React.Component<AppProps, AppState> {
   };
 
   updateContentfulValue = async () => {
+    console.log(this.state);
     if (this.state) {
       const { lowEnd, highEnd } = this.state;
       const update = {
@@ -188,16 +162,10 @@ export class App extends React.Component<AppProps, AppState> {
     this.updateContentfulValue();
   };
 
-  // onValueChange = (event: ChangeEvent<any>) => {
-  //   updateCallback({ [fieldName]: parseInt(event.target.value) });
-  // };
-
   onChange = (event: any) => {
-    console.log(event);
-    // event.target
-    // this.setState({
-    //   selected: new Date(ms)
-    // });
+    // console.log(event);
+    this.setState({ lowEnd: event[0], highEnd: event[1] });
+    this.updateContentfulValue();
   };
 
   render = () => {
@@ -212,8 +180,6 @@ export class App extends React.Component<AppProps, AppState> {
             mode={2}
             onChange={this.onChange}
             values={[0, 100]}>
-            {/* <Slider rootStyle={sliderStyle} domain={[0, 100]} step={1} mode={2} values={[0, 100]}> */}
-            {/* {({ values, getSliderProps }) => (test = { values })} */}
             <Rail>{({ getRailProps }) => <div style={railStyle} {...getRailProps()} />}</Rail>
             <Handles>
               {({ handles, getHandleProps }) => (
