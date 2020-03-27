@@ -200,6 +200,11 @@ export class App extends React.Component<AppProps, AppState> {
               )}
             </Tracks>
           </Slider>
+          <HelpText>
+            {
+              "Select the questionnaire score range associated with this result. Don't select ranges overlapping with other results!"
+            }
+          </HelpText>
 
           {/* <SliderField
             value={duration}
@@ -257,6 +262,17 @@ const railStyle = {
 const Form = styled.form`
   align-content: center;
   display: block;
+`;
+
+const HelpText = styled.p`
+  font-family: -apple-system, BlinkMacSystemFont, Segoe UI, Helvetica, Arial, sans-serif,
+    Apple Color Emoji, Segoe UI Emoji, Segoe UI Symbol;
+  font-size: 0.875rem;
+  line-height: 1.5;
+  display: block;
+  margin: 0;
+  color: #8091a5;
+  margin-bottom: 2rem;
 `;
 
 init(sdk => {
