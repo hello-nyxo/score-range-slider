@@ -192,25 +192,27 @@ export class App extends React.Component<AppProps, AppState> {
   //   updateCallback({ [fieldName]: parseInt(event.target.value) });
   // };
 
-  // onChange = ([ms]) => {
-  //   this.setState({
-  //     selected: new Date(ms)
-  //   });
-  // };
+  onChange = (event: any) => {
+    console.log(event.target.ref);
+    // event.target
+    // this.setState({
+    //   selected: new Date(ms)
+    // });
+  };
 
   render = () => {
     const { lowEnd, highEnd } = this.state;
     return (
       <div className="App">
         <Form spacing="condensed">
-          {/* <Slider
+          <Slider
             rootStyle={sliderStyle}
             domain={[0, 100]}
             step={1}
             mode={2}
-            values={[0, 100]}
-            onChange={this.onChange}> */}
-          <Slider rootStyle={sliderStyle} domain={[0, 100]} step={1} mode={2} values={[0, 100]}>
+            onChange={this.onChange}
+            values={[0, 100]}>
+            {/* <Slider rootStyle={sliderStyle} domain={[0, 100]} step={1} mode={2} values={[0, 100]}> */}
             {/* {({ values, getSliderProps }) => (test = { values })} */}
             <Rail>{({ getRailProps }) => <div style={railStyle} {...getRailProps()} />}</Rail>
             <Handles>
