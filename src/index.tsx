@@ -193,7 +193,7 @@ export class App extends React.Component<AppProps, AppState> {
   // };
 
   onChange = (event: any) => {
-    console.log(event.target.ref);
+    console.log(event);
     // event.target
     // this.setState({
     //   selected: new Date(ms)
