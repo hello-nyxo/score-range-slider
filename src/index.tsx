@@ -179,7 +179,7 @@ export class App extends React.Component<AppProps, AppState> {
             step={1}
             mode={2}
             onChange={this.onChange}
-            values={[0, 100]}>
+            values={[lowEnd, highEnd]}>
             <Rail>{({ getRailProps }) => <div style={railStyle} {...getRailProps()} />}</Rail>
             <Handles>
               {({ handles, getHandleProps }) => (
