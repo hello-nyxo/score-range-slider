@@ -170,7 +170,7 @@ const HelpText = styled.p`
   display: block;
   margin: 0;
   color: #8091a5;
-  margin-bottom: 2rem;
+  margin-bottom: 0rem;
 `;
 
 init(sdk => {
